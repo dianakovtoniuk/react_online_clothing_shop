@@ -1,4 +1,11 @@
-export default function Cart({ items, onUpdateItemQuantity }) {
+import type { CartItem } from '../types';
+
+type CartProps = {
+  items: CartItem[];
+  onUpdateItemQuantity: (id: string, amount: number) => void;
+};
+
+export default function Cart({ items, onUpdateItemQuantity }: CartProps) {
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
