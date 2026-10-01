@@ -4,7 +4,10 @@ import Header from './components/Header';
 import Shop from './components/Shop';
 import Product from './components/Product';
 import { DUMMY_PRODUCTS } from './dummy-products';
-import { CartContext } from './store/shopping-cart-context';
+import {
+  CartContext,
+  type CartContextValue,
+} from './store/shopping-cart-context';
 import type { ShoppingCart } from './types';
 
 function App() {
@@ -73,16 +76,19 @@ function App() {
     });
   }
 
+  const ctxValue: CartContextValue = {
+    items: shoppingCart.items,
+    addItemToCart: handleAddItemToCart,
+    updateItemQuantity: handleUpdateCartItemQuantity,
+  };
+
   return (
-    <CartContext.Provider value={shoppingCart}>
-      <Header
-        cart={shoppingCart}
-        onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
-      />
+    <CartContext.Provider value={ctxValue}>
+      <Header />
       <Shop>
         {DUMMY_PRODUCTS.map((product) => (
           <li key={product.id}>
-            <Product {...product} onAddToCart={handleAddItemToCart} />
+            <Product {...product} />
           </li>
         ))}
       </Shop>

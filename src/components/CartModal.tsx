@@ -8,13 +8,12 @@ export type CartModalHandle = {
 };
 
 type CartModalProps = {
-  onUpdateCartItemQuantity: (id: string, amount: number) => void;
   title: string;
   actions: ReactNode;
 };
 
 const CartModal = forwardRef<CartModalHandle, CartModalProps>(function Modal(
-  { onUpdateCartItemQuantity, title, actions },
+  { title, actions },
   ref
 ) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -28,7 +27,7 @@ const CartModal = forwardRef<CartModalHandle, CartModalProps>(function Modal(
   return createPortal(
     <dialog id="modal" ref={dialog}>
       <h2>{title}</h2>
-      <Cart onUpdateItemQuantity={onUpdateCartItemQuantity} />
+      <Cart />
       <form method="dialog" id="modal-actions">
         {actions}
       </form>
